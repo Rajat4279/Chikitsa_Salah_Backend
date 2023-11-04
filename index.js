@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //Database Connection
-const DB_Connection = require("./dbConnection"); 
+const DB_Connection = require("./dbConnection");
 
 //enabling cross origin resource transfer
 const cors = require("cors");
@@ -13,13 +13,18 @@ const cors = require("cors");
 //Establishing the connection with database
 DB_Connection();
 
+const corsOption = {
+    origin: true,
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOption));
 
 const port = 8000;
 
 const chatApi = require("./routes/chatApi");
-const Doctors = require("./routes/Doctors");
+const recommendedDoctors = require("./routes/recommendedDoctors");
+const getDoctors = require("./routes/getDoctors");
 
 app.get("/", (req, res) => {
     res.send("Server is up and running");
@@ -27,7 +32,9 @@ app.get("/", (req, res) => {
 
 app.post("/chat", chatApi);
 
-app.post("/doctors",Doctors);
+app.get("/getDoctors", getDoctors);
+
+app.post("/doctors", recommendedDoctors);
 
 app.get("*", (req, res) => {
     res.send("404 Page not found!");

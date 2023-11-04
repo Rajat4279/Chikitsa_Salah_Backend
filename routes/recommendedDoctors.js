@@ -1,7 +1,7 @@
 const express = require("express");
 const DoctorModal = require("../models/doctor_model");
 
-const getDoctors = async (req, res) => {
+const recommendedDoctors = async (req, res) => {
 
     try {
         const allDoctors = await DoctorModal.find();
@@ -45,4 +45,4 @@ const getDoctors = async (req, res) => {
     }
 };
 
-module.exports = getDoctors;
+module.exports = recommendedDoctors;
